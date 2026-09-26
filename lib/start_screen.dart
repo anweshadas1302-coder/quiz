@@ -10,15 +10,23 @@ class StartScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'Welcome to the App!',
+            'Welcome to Quiz App!',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
+          Image.asset(
+            "assets/images/quiz-logo.png",
+            width: 300,
+            color: Colors.amberAccent,
+          ),
+          // Opacity(
+          //   opacity: 0.5,
+          //   child: Image.asset("assets/images/quiz-logo.png", width: 300),
+          // ),
           const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              // Navigate to the next screen or perform an action
-            },
-            child: const Text('Get Started'),
+          ElevatedButton.icon(
+            onPressed: () {},
+            icon: const Icon(Icons.arrow_right_alt),
+            label: const Text('Get Started'),
           ),
         ],
       ),
