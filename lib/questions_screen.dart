@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/answer_button.dart';
 import 'package:quiz_app/data/questions.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen({super.key});
+  const QuestionsScreen({super.key, required this.onSelectAnswer});
+
+  final void Function(String answer) onSelectAnswer;
 
   @override
   State<QuestionsScreen> createState() {
@@ -14,7 +17,8 @@ class QuestionsScreen extends StatefulWidget {
 class _QuestionsScreenState extends State<QuestionsScreen> {
   var currentQuestionIndex = 0;
 
-  void answerQuestion() {
+  void answerQuestion(String selectedAnswer) {
+    widget.onSelectAnswer(selectedAnswer);
     setState(() {
       currentQuestionIndex++;
     });
@@ -27,7 +31,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     return SafeArea(
       child: Stack(
         children: [
-          // Corner Tag
           Positioned(
             top: 16,
             left: 16,
@@ -41,9 +44,9 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                 borderRadius: BorderRadius.circular(10.0),
                 border: Border.all(color: Colors.amberAccent, width: 2.0),
               ),
-              child: const Text(
+              child: Text(
                 "QuestionScreen",
-                style: TextStyle(
+                style: GoogleFonts.lato(
                   color: Colors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -51,8 +54,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               ),
             ),
           ),
-
-          // Main Question & Answer Area
           SizedBox(
             width: double.infinity,
             child: Container(
@@ -63,7 +64,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                 children: [
                   Text(
                     currentQuestion.text,
-                    style: const TextStyle(
+                    style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -72,9 +73,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   ),
                   const SizedBox(height: 30),
                   ...currentQuestion.answers.map((answer) {
-                    return AnswerButton(
-                      answerText: answer,
-                      onTap: answerQuestion,
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 6.0),
+                      child: AnswerButton(
+                        answerText: answer,
+                        onTap: () {
+                          answerQuestion(answer);
+                        },
+                      ),
                     );
                   }),
                 ],
