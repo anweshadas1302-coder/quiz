@@ -36,7 +36,7 @@ class _QuizState extends State<Quiz> {
   void restartQuiz() {
     setState(() {
       selectedAnswers = [];
-      activeScreen = 'questions-screen';
+      activeScreen = 'start-screen';
     });
   }
 
@@ -45,7 +45,9 @@ class _QuizState extends State<Quiz> {
     Widget screenWidget = StartScreen(switchScreen);
 
     if (activeScreen == 'questions-screen') {
-      screenWidget = QuestionsScreen(onSelectAnswer: chooseAnswer);
+      screenWidget = QuestionsScreen(
+        onSelectAnswer: chooseAnswer,
+      );
     } else if (activeScreen == 'results-screen') {
       screenWidget = ResultsScreen(
         chosenAnswers: selectedAnswers,
@@ -56,19 +58,16 @@ class _QuizState extends State<Quiz> {
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          // --- UPDATED GRADIENT COLORS FOR HIGH VISIBILITY ---
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                // Dark, deep purples for dramatic contrast
-                Color.fromARGB(255, 78, 13, 151), // Deeper purple top
-                Color.fromARGB(255, 107, 15, 168), // Mid purple bottom
+                Color.fromARGB(255, 78, 13, 151),
+                Color.fromARGB(255, 107, 15, 168),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
-          // --------------------------------------------------
           child: screenWidget,
         ),
       ),

@@ -17,12 +17,14 @@ class ResultsScreen extends StatelessWidget {
     final List<Map<String, Object>> summary = [];
 
     for (var i = 0; i < chosenAnswers.length; i++) {
-      summary.add({
-        'question_index': i,
-        'question': questions[i].text,
-        'correct_answer': questions[i].answers[0],
-        'user_answer': chosenAnswers[i],
-      });
+      summary.add(
+        {
+          'question_index': i,
+          'question': questions[i].text,
+          'correct_answer': questions[i].answers[0],
+          'user_answer': chosenAnswers[i],
+        },
+      );
     }
 
     return summary;
@@ -53,14 +55,13 @@ class ResultsScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 30),
-
-            // Using the new QuestionsSummary widget here
             QuestionsSummary(summaryData),
-
             const SizedBox(height: 30),
             TextButton.icon(
               onPressed: onRestart,
-              style: TextButton.styleFrom(foregroundColor: Colors.white),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+              ),
               icon: const Icon(Icons.refresh),
               label: const Text('Restart Quiz!'),
             ),
